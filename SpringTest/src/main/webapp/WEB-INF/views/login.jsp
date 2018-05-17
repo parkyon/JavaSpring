@@ -79,7 +79,7 @@
 	<h1 id="banner">로그인 </h1>
 
 	<div id="main">
-	  <form class="cmxform" id="commentForm2" method="post" action="">
+	  <form class="cmxform" id="commentForm2" method="post" action="/">
 		  <fieldset>
 			  <p>
 		      <label for="ID">아이디　
@@ -96,7 +96,7 @@
 		    </p>
               <center><table width="200" >
  <tr>
-    <center><td><a href="회원등록.html">회원가입</a></td></center>
+    <center><td><a href="signup">회원가입</a></td></center>
     <center><td><a href="sdfdsfsdfdsfdsf">아아디 찾기</a></td></center>
   </tr>
 </table></center>
