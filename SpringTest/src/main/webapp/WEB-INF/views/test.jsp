@@ -7,10 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>검색결과</h1>
-
-
-
-아이디	${user.id} 패스워드 ${user.pw} 이메일 ${user.email} 
+id:${user.id},pw:${user.pw},email:${user.email}
 </body>
 </html>

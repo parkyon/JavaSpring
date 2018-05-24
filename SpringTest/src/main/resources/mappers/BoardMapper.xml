@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.SpringTest.dao.BoardMapper">
+  <insert id="setBoard">
+    insert into board (title,contents, author) 
+    values (#{title}, #{contents},#{author})
+  </insert>
+  <select id="getBoards" resultType="kr.green.SpringTest.dao.Board">
+  	select * from board
+  </select>
+  <select id="getBoardById" resultType="kr.green.SpringTest.dao.Board">
+  	select * from board where number = #{number}
+  </select>
+  <update id="modifyBoard" parameterType="kr.green.SpringTest.dao.Board">
+  	update board set contents = ${contents}, title = #{title},  author = ${author} where number = #{number}
+  </update>
+  <select id="getPageBoards" resultType="kr.green.SpringTest.dao.Board">
+  	select * from board order by number DESC limit #{pageStart},#{perPageNum}   
+  </select>
+</mapper>

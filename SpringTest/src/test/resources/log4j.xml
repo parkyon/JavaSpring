@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="kor.green.springtest">
+	<logger name="kr.green.SpringTest">
 		<level value="info" />
 	</logger>
 	
