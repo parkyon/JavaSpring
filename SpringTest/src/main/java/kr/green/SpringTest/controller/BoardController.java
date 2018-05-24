@@ -37,24 +37,42 @@ public class BoardController {
 	}
 	@RequestMapping(value="/list", 
 			method= RequestMethod.GET)
-	public String boardListGet(Model model, Integer page) {
+	public String boardListGet(Model model, Integer page, HttpServletRequest r) {
 		//ArrayList<Board> list = (ArrayList)boardMapper.getBoards();
 		if(page == null)
 			page = 1;
 		Page p = new Page(page,10);
-		ArrayList<Board> list = (ArrayList)boardMapper.getPageBoards(p);
-		model.addAttribute("list", list);
-		int totalCount = boardMapper.getBoardsCount();
+		ArrayList<Board> list;
+		int totalCount = 0;
+		String search = r.getParameter("search");
+		//검색어가 없을때 
+		if(search == null || search.length()== 0) {
+		list = (ArrayList)boardMapper.getPageBoards(p);
+		totalCount = boardMapper.getBoardsCount();			
+		}
+		
+		//검색어가 있을경우
+		else {
+			list = (ArrayList)boardMapper.getPageBoardsByTitle("%"+search+"%");
+			totalCount = boardMapper.getBoardsCountByTitle("%"+search+"%");
+		}
 		PageMaker pm = new PageMaker();   //숫자에 연관딘 것을 만들어주기 이한거.
 		pm.setPage(p);
 		pm.setTotalCount(totalCount);
+		model.addAttribute("list", list);
 		model.addAttribute("pm", pm);
-		System.out.println(pm.getEndPage());
-		System.out.println(pm.isPrev());
-		System.out.println(pm.isNext());
+
 		
 		
 		return "/WEB-INF/views/board/list.jsp";
+		
+	}
+	
+	@RequestMapping(value="/list", 
+			method= RequestMethod.POST)
+	public String boardListPost(Model model,String search) {   //list.jsp에서 name=search 임
+		model.addAttribute("search", search);			
+		return "redirect:/board/list";
 	}
 	@RequestMapping(value="/detail", 
 			method= RequestMethod.GET)

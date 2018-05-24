@@ -20,6 +20,16 @@
 			<h3>게시판</h3>
 		</div>
 		<div class="row ">
+		<form method="post">
+			<div class="form-group" style="display:inline-block">
+				<input class="form-control" name="search">
+			</div>
+			<div style="display:inline-block" >
+				<button type="submit" class="btn" >검색</button>
+			</div>
+			
+		</form>
+		
 		<table class="table table-dark table-striped">
 		    <thead>
 				<tr>

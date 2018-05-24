@@ -23,4 +23,11 @@
   <select id="getBoardsCount" resultType="java.lang.Integer">
   select count(number) from board
   </select>
+  <select id="getPageBoardsByTitle" resultType="kr.green.SpringTest.dao.Board">
+   select * from board where title like #{search} 
+  
+  </select>
+ <select id="getBoardsCountByTitle" resultType="java.lang.Integer">
+ select count(number) from board where title like #{search}
+ </select>
 </mapper>
