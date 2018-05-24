@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import kr.green.SpringTest.dao.Board;
 import kr.green.SpringTest.dao.BoardMapper;
 import kr.green.SpringTest.page.Page;
+import kr.green.SpringTest.page.PageMaker;
 
 @Controller
 @RequestMapping(value="/board/*")
@@ -36,11 +37,23 @@ public class BoardController {
 	}
 	@RequestMapping(value="/list", 
 			method= RequestMethod.GET)
-	public String boardListGet(Model model) {
+	public String boardListGet(Model model, Integer page) {
 		//ArrayList<Board> list = (ArrayList)boardMapper.getBoards();
-		Page p = new Page(1,10);
+		if(page == null)
+			page = 1;
+		Page p = new Page(page,10);
 		ArrayList<Board> list = (ArrayList)boardMapper.getPageBoards(p);
 		model.addAttribute("list", list);
+		int totalCount = boardMapper.getBoardsCount();
+		PageMaker pm = new PageMaker();   //숫자에 연관딘 것을 만들어주기 이한거.
+		pm.setPage(p);
+		pm.setTotalCount(totalCount);
+		model.addAttribute("pm", pm);
+		System.out.println(pm.getEndPage());
+		System.out.println(pm.isPrev());
+		System.out.println(pm.isNext());
+		
+		
 		return "/WEB-INF/views/board/list.jsp";
 	}
 	@RequestMapping(value="/detail", 

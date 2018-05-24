@@ -79,7 +79,7 @@ public class PageMaker {
 		// page/10 올림 *10
 		//Math.ceil 은 올림을 해주는거 즉 1.3를 2.0으로 만들어준다
 		startPage = (endPage-displayPageNum)+1;
-		int tempEndPage = (int)(Math.ceil(totalCount)/(double)page.getPerPageNum());  //총 필요한 페이지수를 구한다
+		int tempEndPage = (int)(Math.ceil(totalCount/(double)page.getPerPageNum()));  //총 필요한 페이지수를 구한다
 		
 		if(endPage > tempEndPage)
 			endPage = tempEndPage;
@@ -91,6 +91,10 @@ public class PageMaker {
 		next = endPage *page.getPerPageNum() >= totalCount ? false : true;   //10개씩 다음버튼 끊을떄 이걸 사용 (네이버카페 기준)
 				
 		
+	}
+	
+	public String query(int page) {
+		return "/board/list?page="+page;
 	}
 
 }

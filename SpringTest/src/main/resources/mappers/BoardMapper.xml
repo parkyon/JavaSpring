@@ -19,4 +19,8 @@
   <select id="getPageBoards" resultType="kr.green.SpringTest.dao.Board">
   	select * from board order by number DESC limit #{pageStart},#{perPageNum}   
   </select>
+  
+  <select id="getBoardsCount" resultType="java.lang.Integer">
+  select count(number) from board
+  </select>
 </mapper>

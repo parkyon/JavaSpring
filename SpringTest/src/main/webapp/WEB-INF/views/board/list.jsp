@@ -19,7 +19,7 @@
 		<div class="row"> 
 			<h3>게시판</h3>
 		</div>
-		<div class="row">
+		<div class="row ">
 		<table class="table table-dark table-striped">
 		    <thead>
 				<tr>
@@ -41,22 +41,32 @@
 		    </tbody>
 		  </table>
 				  
-				<div class="container">
+				<div class="container col-md-4">
 		  
 		  <ul class="pagination">
-		    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-		    <li class="page-item"><a class="page-link" href="#">1</a></li>
-		    <li class="page-item"><a class="page-link" href="#">2</a></li>
-		    <li class="page-item"><a class="page-link" href="#">3</a></li>
-		    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+		  <c:if test="${pm.prev}">
+		    <li class="page-item"><a class="page-link" href="${pm.query(pm.getStartPage()-1)}">Previous</a></li>
+		  </c:if>
+		  <c:forEach var="idx" begin="${pm.startPage}" end="${pm.endPage}">
+		   <li class="page-item"<c:out value="${pm.page.page == idx? 'style=font-weight:700' : ''}"/>>
+		    <a  onclick= 'style="background-color:blue"' class="page-link" href="/board/list?page=${idx}">${idx}</a>
+		   
+		    </li>
+		   </c:forEach>
+		  <c:if test="${pm.next}">
+		    <li class="page-item"><a class="page-link" href="${pm.query(pm.getEndPage()+1)}">Next</a></li>
+		  </c:if>
 		  </ul>
 		</div>
+		
+		<div>
 		  <a href="/main">
 		  	<button class="btn btn-default"> 홈 </button>
 		  </a>
 		  <a href="/board/write" style="margin: 0 0 0 10px;">
 		  	<button class="btn btn-default"> 글쓰기 </button>
 		  </a>
+		  </div>
 		</div>
 	</div>
 	
