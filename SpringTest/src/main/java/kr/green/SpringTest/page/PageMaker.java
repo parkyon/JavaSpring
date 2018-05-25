@@ -74,21 +74,23 @@ public class PageMaker {
 	}
 	
 	public void calcDate() {
-		endPage = (int) (Math.ceil(page.getPage()/(double)displayPageNum)*displayPageNum);
+		endPage = (int)(Math.ceil(page.getPage()/(double)displayPageNum)
+				*displayPageNum);
 		//start가 1 이면 마지막은 10 start가 14이면 마지막 20이 되게 만들기 위한 공식
 		// page/10 올림 *10
 		//Math.ceil 은 올림을 해주는거 즉 1.3를 2.0으로 만들어준다
-		startPage = (endPage-displayPageNum)+1;
-		int tempEndPage = (int)(Math.ceil(totalCount/(double)page.getPerPageNum()));  //총 필요한 페이지수를 구한다
+		startPage = (endPage-displayPageNum) + 1;
+		int tmpEndPage = (int)(Math.ceil(totalCount/(double)page.getPerPageNum()));  //총 필요한 페이지수를 구한다
 		
-		if(endPage > tempEndPage)
-			endPage = tempEndPage;
+		if(endPage > tmpEndPage)
+			endPage = tmpEndPage;
 		//endpage와 tmpEndpage중 작은 것을 실제 endpage로 한다.
-		prev = startPage == 1? false: true;  //startPage가 1과 같으면 false 다르면 true
+		prev = startPage == 1 ? false: true;  //startPage가 1과 같으면 false 다르면 true
 		
 		//next = page.getPage() *page.getPerPageNum() >= totalCount ? false : true; 
 		//하나씩 다음 버튼 누를경우에 위에거 꺼사용
-		next = endPage *page.getPerPageNum() >= totalCount ? false : true;   //10개씩 다음버튼 끊을떄 이걸 사용 (네이버카페 기준)
+		next = endPage * page.getPerPageNum() >= totalCount 
+				? false : true;   //10개씩 다음버튼 끊을떄 이걸 사용 (네이버카페 기준)
 				
 		
 	}

@@ -35,9 +35,11 @@ public class BoardController {
 		boardMapper.setBoard(title, contents, author);
 		return "redirect:/board/list";
 	}
+	
 	@RequestMapping(value="/list", 
 			method= RequestMethod.GET)
-	public String boardListGet(Model model, Integer page, HttpServletRequest r) {
+	public String boardListGet(Model model,Integer page,
+			HttpServletRequest r) {
 		//ArrayList<Board> list = (ArrayList)boardMapper.getBoards();
 		if(page == null)
 			page = 1;
@@ -45,34 +47,125 @@ public class BoardController {
 		ArrayList<Board> list;
 		int totalCount = 0;
 		String search = r.getParameter("search");
-		//검색어가 없을때 
-		if(search == null || search.length()== 0) {
-		list = (ArrayList)boardMapper.getPageBoards(p);
-		totalCount = boardMapper.getBoardsCount();			
+		Integer searchType;
+		String tmp = r.getParameter("searchType");
+		if(tmp == null  || tmp.length()==0)
+			searchType = 0;
+		else
+			searchType = Integer.parseInt(tmp);
+		
+		//검색어가 없을 때
+		if(search == null || search.length() == 0 || searchType == null) {
+			list = (ArrayList)boardMapper.getPageBoards(p);
+			totalCount = boardMapper.getBoardsCount();
+		}
+		//검색어가 있을 때
+		else {
+			
+			
+			if(searchType==0) {
+				list = (ArrayList)boardMapper
+						.getPageBoardsByTitle(p,"%"+search+"%");
+				totalCount = boardMapper
+						.getBoardsCountByTitle("%"+search+"%");
+					model.addAttribute("searchType", 0);
+			}
+			else if(searchType==1) {
+				list = (ArrayList)boardMapper
+						.getPageBoardsByContents(p,"%"+search+"%");
+				totalCount = boardMapper
+						.getBoardsCountByContents("%"+search+"%");
+					model.addAttribute("searchType", 1);
+			}	
+			else {
+				list = (ArrayList)boardMapper
+						.getPageBoardsByAuthor(p,"%"+search+"%");
+				totalCount = boardMapper
+						.getBoardsCountByAuthor("%"+search+"%");
+					model.addAttribute("searchType", 2);
+				
+			}
 		}
 		
-		//검색어가 있을경우
-		else {
-			list = (ArrayList)boardMapper.getPageBoardsByTitle("%"+search+"%");
-			totalCount = boardMapper.getBoardsCountByTitle("%"+search+"%");
-		}
-		PageMaker pm = new PageMaker();   //숫자에 연관딘 것을 만들어주기 이한거.
+		
+		
+		PageMaker pm = new PageMaker();
 		pm.setPage(p);
 		pm.setTotalCount(totalCount);
 		model.addAttribute("list", list);
 		model.addAttribute("pm", pm);
-
+		model.addAttribute("search", search);
+		
 		
 		
 		return "/WEB-INF/views/board/list.jsp";
-		
 	}
-	
+
 	@RequestMapping(value="/list", 
 			method= RequestMethod.POST)
-	public String boardListPost(Model model,String search) {   //list.jsp에서 name=search 임
-		model.addAttribute("search", search);			
-		return "redirect:/board/list";
+	public String boardListPost(Model model, HttpServletRequest r, Integer page) {   //list.jsp에서 name=search 임
+			
+		//ArrayList<Board> list = (ArrayList)boardMapper.getBoards();
+				if(page == null)
+					page = 1;
+					Page p = new Page(page,10);
+					ArrayList<Board> list;
+					int totalCount = 0;
+					
+					//httpservletRequest를 이요하여 jsp의 값을 가져옴
+					String search = r.getParameter("search");
+					Integer searchType;
+					String tmp = r.getParameter("searchType");
+					if(tmp == null || tmp.length()==0)
+						searchType = 0;
+					else {
+						System.out.println(tmp.length());
+						searchType = Integer.parseInt(tmp);
+					}
+				//검색어가 없을 때 모든 게시글을 가져옴
+				if(search == null || search.length() == 0 || searchType == null ) {
+					list = (ArrayList)boardMapper.getPageBoards(p);
+					totalCount = boardMapper.getBoardsCount();
+				}
+				//검색어가 있을 때
+				else {
+					
+					
+					if(searchType==0) {
+						list = (ArrayList)boardMapper
+								.getPageBoardsByTitle(p,"%"+search+"%");
+						totalCount = boardMapper
+								.getBoardsCountByTitle("%"+search+"%");
+							model.addAttribute("searchType", 0);
+					}
+					else if(searchType==1) {
+						list = (ArrayList)boardMapper
+								.getPageBoardsByContents(p,"%"+search+"%");
+						totalCount = boardMapper
+								.getBoardsCountByContents("%"+search+"%");
+							model.addAttribute("searchType", 1);
+					}	
+					else {
+						list = (ArrayList)boardMapper
+								.getPageBoardsByAuthor(p,"%"+search+"%");
+						totalCount = boardMapper
+								.getBoardsCountByAuthor("%"+search+"%");
+							model.addAttribute("searchType", 2);
+						
+					}
+				}
+				
+				
+				PageMaker pm = new PageMaker();
+				pm.setPage(p);
+				pm.setTotalCount(totalCount);
+				model.addAttribute("list", list);
+				model.addAttribute("pm", pm);
+				model.addAttribute("search", search);
+				
+				
+				return "/WEB-INF/views/board/list.jsp";
+		
 	}
 	@RequestMapping(value="/detail", 
 			method= RequestMethod.GET)

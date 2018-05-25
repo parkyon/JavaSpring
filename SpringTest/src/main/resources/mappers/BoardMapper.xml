@@ -23,11 +23,27 @@
   <select id="getBoardsCount" resultType="java.lang.Integer">
   select count(number) from board
   </select>
-  <select id="getPageBoardsByTitle" resultType="kr.green.SpringTest.dao.Board">
-   select * from board where title like #{search} 
   
+  <select id="getPageBoardsByTitle" resultType="kr.green.SpringTest.dao.Board">
+   select * from board where title like #{search} order by number DESC limit #{p.pageStart},#{p.perPageNum}  
   </select>
  <select id="getBoardsCountByTitle" resultType="java.lang.Integer">
  select count(number) from board where title like #{search}
  </select>
+ 
+ <select id="getPageBoardsByContents" resultType="kr.green.SpringTest.dao.Board">
+   select * from board where contents like #{search} order by number DESC limit #{p.pageStart},#{p.perPageNum}  
+  </select>
+ <select id="getBoardsCountByContents" resultType="java.lang.Integer">
+ select count(number) from board where contents like #{search}
+ </select>
+ 
+ 
+ <select id="getPageBoardsByAuthor" resultType="kr.green.SpringTest.dao.Board">
+   select * from board where author like #{search} order by number DESC limit #{p.pageStart},#{p.perPageNum}  
+  </select>
+ <select id="getBoardsCountByAuthor" resultType="java.lang.Integer">
+ select count(number) from board where author like #{search}
+ </select>
+
 </mapper>

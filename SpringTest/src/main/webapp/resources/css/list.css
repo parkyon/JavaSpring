@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+.pagenation-active{
+	color:red;
+	
+}
+th{
+	text-align: center;
+}
+
+td{
+	text-align: center;
+}
+a:hover{
+	text-decoration: none;
+	color: red;
+	font-weight: 700;
+}
