@@ -19,4 +19,9 @@
     insert into account (id,pw,email) values (#{id}, #{pw},#{email})
   </insert>
 	<select id="getData"></select>
+	<select id="login" resultType="kr.green.SpringTest.dao.User">
+	select * from account where id = #{id} and pw = #{pw}
+	
+	</select>	
+	
 </mapper>

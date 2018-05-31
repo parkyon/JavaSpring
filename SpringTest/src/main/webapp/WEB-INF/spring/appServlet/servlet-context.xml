@@ -23,6 +23,17 @@
 	
 	<context:component-scan base-package="kr.green.SpringTest" />
 	
+	<beans:bean id="loginInterceptor" class="kr.green.SpringTest.interceptor.LoginInterceptor">
+	</beans:bean>
 	
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/main"/> 
+			<!-- 로그인 창에 form문에 있는 action 에 적혀있는것으로 경로를 정한다. 그게 아닐꺼면 form에서 보내진 경로를 적는다.  -->
+			<beans:ref bean="loginInterceptor"/>
+			
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>

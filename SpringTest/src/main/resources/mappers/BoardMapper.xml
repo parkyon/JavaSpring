@@ -24,6 +24,7 @@
   select count(number) from board
   </select>
   
+  <!-- 검색 기능 쓸수 있께 해주는것들   -->
   <select id="getPageBoardsByTitle" resultType="kr.green.SpringTest.dao.Board">
    select * from board where title like #{search} order by number DESC limit #{p.pageStart},#{p.perPageNum}  
   </select>

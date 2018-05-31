@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.green.SpringTest.dao.Mapper;
 import kr.green.SpringTest.dao.User;
+import kr.green.SpringTest.dto.LoginDTO;
 
 
 @Controller
@@ -37,15 +38,14 @@ public class HomeController {
 		return "/WEB-INF/views/main.jsp";
 	}
 	@RequestMapping(value = "/main", method = RequestMethod.POST)
-	public String mainPost(HttpServletRequest request,Model model) {
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		User user = mapper.getUser(id);
+	public String mainPost(HttpServletRequest request,Model model, LoginDTO dto) {
+		
+		User user = mapper.login(dto);
 		if(user == null)//계정을 못찾은 경우
 			return "redirect:/";
 		//계정은 찾았지만 비번이 틀린 경우
-		else if(user.getPw().compareTo(pw) != 0)
-			return "redirect:/";
+	
+		model.addAttribute("user", user);
 		return "/WEB-INF/views/main.jsp";
 	}
 	

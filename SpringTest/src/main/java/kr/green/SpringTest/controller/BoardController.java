@@ -95,6 +95,7 @@ public class BoardController {
 		model.addAttribute("list", list);
 		model.addAttribute("pm", pm);
 		model.addAttribute("search", search);
+		model.addAttribute("searchType", searchType);
 		
 		
 		
@@ -162,6 +163,7 @@ public class BoardController {
 				model.addAttribute("list", list);
 				model.addAttribute("pm", pm);
 				model.addAttribute("search", search);
+				model.addAttribute("searchType", searchType);
 				
 				
 				return "/WEB-INF/views/board/list.jsp";

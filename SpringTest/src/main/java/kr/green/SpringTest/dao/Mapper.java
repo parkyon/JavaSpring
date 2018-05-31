@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import kr.green.SpringTest.dto.LoginDTO;
+
 public interface Mapper {
 	public String getId(@Param("id") String id);
 	public String getPw(@Param("id") String id);
@@ -12,4 +14,5 @@ public interface Mapper {
 	public void setUser(@Param("id") String id,
 			@Param("pw") String pw,@Param("email") String email);
 	
+	public User login(LoginDTO dto);
 }
