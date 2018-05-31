@@ -49,6 +49,7 @@
 		
 		<interceptor>
 			<mapping path="/member/*"/> 
+			<mapping path="/"/>
 			
 			<beans:ref bean="unauthorInterceptor"/>
 			

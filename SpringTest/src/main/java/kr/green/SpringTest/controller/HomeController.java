@@ -26,23 +26,12 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String homeGet(HttpServletRequest request,HttpServletResponse response) throws Exception {
-		
-		HttpSession session = request.getSession();
-		if(session.getAttribute("user") != null) {
-			response.sendRedirect("/board/list");
 			
-		}
-		
 		
 		return "/WEB-INF/views/home.jsp";
 		
 	}
-	@RequestMapping(value = "/", method = RequestMethod.POST)
-	public String homePost(String id, String pw, Model model) {
-		model.addAttribute("id", id);
-		model.addAttribute("pw", pw);
-		return "redirect:/main";
-	}
+
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String mainGet(String id, String pw,Model model) {
 		model.addAttribute("id", id);
