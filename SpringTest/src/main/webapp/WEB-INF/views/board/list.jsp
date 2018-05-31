@@ -26,7 +26,8 @@
 	</style>
 </head>
 <body>
-<center><h1>게시판</h1></center>
+<center><h1>게시판 </h1></center>
+<a href="/logout">로그아웃</a><right>
 	<div class="container">
 		
 		
@@ -110,11 +111,7 @@
 		      <div class="col-5"></div>
 		      <div class="col"></div>
 		    
-         <div class="col"> 
-          
-		    <a href="/main">
-		  	<button class="btn btn-default" > 홈 </button>
-		    </a>
+        
 			  <a href="/board/write" style="margin: 0 0 0 10px;">
 			  	<button class="btn btn-default"> 글쓰기 </button>
 		  	  <span style="text-align: center"></span></a>

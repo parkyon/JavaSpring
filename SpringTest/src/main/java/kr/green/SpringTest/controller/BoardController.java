@@ -3,6 +3,7 @@ package kr.green.SpringTest.controller;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.green.SpringTest.dao.Board;
 import kr.green.SpringTest.dao.BoardMapper;
+import kr.green.SpringTest.dao.User;
 import kr.green.SpringTest.page.Page;
 import kr.green.SpringTest.page.PageMaker;
 
@@ -23,7 +25,11 @@ public class BoardController {
 	
 	@RequestMapping(value="/write", 
 			method= RequestMethod.GET)
-	public String boardWriteGet(Model model) {
+	public String boardWriteGet(Model model,HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		model.addAttribute("author", user.getId());
+		
 		return "/WEB-INF/views/board/write.jsp";
 	}
 	@RequestMapping(value="/write", 
@@ -31,7 +37,12 @@ public class BoardController {
 	public String boardWritePOST(Model model, HttpServletRequest request) {
 		String title = request.getParameter("title");
 		String contents = request.getParameter("contents");
-		String author = request.getParameter("author");
+		String author;
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		author = user.getId();
+		
+		
 		boardMapper.setBoard(title, contents, author);
 		return "redirect:/board/list";
 	}
@@ -189,6 +200,8 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 	}
+	
+	
 }
 
 

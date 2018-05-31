@@ -1,9 +1,12 @@
 package kr.green.SpringTest.controller;
 
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,9 +25,17 @@ public class HomeController {
 	Mapper mapper;
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String homeGet() {
-				
+	public String homeGet(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("user") != null) {
+			response.sendRedirect("/board/list");
+			
+		}
+		
+		
 		return "/WEB-INF/views/home.jsp";
+		
 	}
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public String homePost(String id, String pw, Model model) {
@@ -49,11 +60,15 @@ public class HomeController {
 		return "/WEB-INF/views/main.jsp";
 	}
 	
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String testPost(Model model, HttpServletRequest request) {
+	
+	
+	@RequestMapping(value = "/logout")
+	public String logout(HttpServletRequest request,Model model) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("user");
+		//로그아웃 누르고 list주소를 쳐서 들어갈경우 들어가지느걸 막기 위해 로그아웃하면 그 세션에 있는 user정보를 삭제해준다.
 		
-		mapper.setUser("1234", "1234", "1234@email");
-		return "/WEB-INF/views/test.jsp";
+		return "redirect:/";
 	}
 }
 

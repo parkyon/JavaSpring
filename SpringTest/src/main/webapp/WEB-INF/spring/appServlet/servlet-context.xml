@@ -25,15 +25,36 @@
 	
 	<beans:bean id="loginInterceptor" class="kr.green.SpringTest.interceptor.LoginInterceptor">
 	</beans:bean>
-	
+	<beans:bean id="authInterceptor" class="kr.green.SpringTest.interceptor.AuthInterceptor">
+	</beans:bean>
+	<beans:bean id="unauthorInterceptor" class="kr.green.SpringTest.interceptor.UnauthorInterceptor">
+	</beans:bean>
 	
 	<interceptors>
 		<interceptor>
 			<mapping path="/main"/> 
-			<!-- 로그인 창에 form문에 있는 action 에 적혀있는것으로 경로를 정한다. 그게 아닐꺼면 form에서 보내진 경로를 적는다.  -->
+			<!-- 로그인 창에 form문에 있는 action 에 적혀있는것으로 경로를 정한다. 그게 아닐꺼면 form에서 보내진 경로를 적는다.
+			/main이 실행될경우 이걸 실행하게 한다.  -->
 			<beans:ref bean="loginInterceptor"/>
 			
 		</interceptor>
+		<interceptor>
+			<mapping path="/board/*"/> 
+			
+		<!-- board 밑에 있는 것들이 전부다 로그인을 안할경우 접속하지 못하고 전부 로그인창으로 가진다. -->
+			
+			<beans:ref bean="authInterceptor"/>
+			
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/member/*"/> 
+			
+			<beans:ref bean="unauthorInterceptor"/>
+			
+		</interceptor>
 	</interceptors>
+	
+	
 	
 </beans:beans>

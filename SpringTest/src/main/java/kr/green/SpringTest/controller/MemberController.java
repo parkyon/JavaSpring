@@ -20,6 +20,8 @@ public class MemberController {
 	@RequestMapping(value ="/signup", 
 			method = RequestMethod.GET)
 	public String memberSignupGet() {
+		
+		
 		return "/WEB-INF/views/member/signup.jsp";
 	}
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)

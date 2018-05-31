@@ -30,7 +30,7 @@
 				<div class="offset-2 col-8">
 					<div class="form-group">
 			  			<label for="pwd">작성자:</label>
-			  			<input type="test" class="form-control" id="pwd" name="author">
+			  			<input type="test" class="form-control" id="pwd" name="author" value="${author}" disabled>
 					</div>
 				</div>
 				<div class="offset-2 col-8">
